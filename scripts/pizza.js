@@ -52,9 +52,9 @@ const circle = {
   ax: 0,
   ay: 0,
   direction: 0,  // Add a property to keep track of the direction of the car
-  friction: 0.98, // Add a friction property to slow down the car
+  friction: 0.99, // Add a friction property to slow down the car
   maxVelocity: 0.005 * (canvas.height + canvas.height)/2, // Add a max velocity property to limit the speed of the car
-  acceleration: 0.001
+  acceleration: 0.000125
 };
 
 const target = {
@@ -283,12 +283,6 @@ function stopTimer() {
   elapsedTime = 0; // Reset elapsed time
 }
 
-function sendPizzaDataToServer(data) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/save_pizza_data', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(JSON.stringify(data));
-}
 
 // The main game loop
 function update() {
@@ -389,6 +383,14 @@ canvas.addEventListener('click', function(event) {
     startTimer();
   }
 });
+
+// Send the data to the server
+function sendPizzaDataToServer(data) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/save_pizza_data', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify(data));
+}
 
 // Start the first screen. Draw the instructions on the canvas. 
 drawInstructions();
